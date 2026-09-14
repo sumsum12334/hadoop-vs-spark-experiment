@@ -1,0 +1,3 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W1,S,1,98.140,1.0189,3129.5,409.3,true,
+high_ram,spark,W1,S,1,21.866,4.5734,2354.6,232.7,true,
