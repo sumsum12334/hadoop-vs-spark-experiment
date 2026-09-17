@@ -1,0 +1,19 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W2,S,1,77.605,1.2886,10242.2,345.7,true,
+high_ram,mapreduce,W2,S,2,73.224,1.3657,10309.9,479.6,true,
+high_ram,mapreduce,W2,S,3,72.213,1.3848,10384.8,303.8,true,
+high_ram,spark,W2,S,1,23.507,4.2540,9639.6,248.0,true,
+high_ram,spark,W2,S,2,22.883,4.3701,9488.6,253.1,true,
+high_ram,spark,W2,S,3,22.792,4.3874,9509.3,306.4,true,
+high_ram,mapreduce,W2,M,1,407.648,2.5120,12446.6,615.1,true,"stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,mapreduce,W2,M,2,392.763,2.6072,13345.2,612.2,true,
+high_ram,mapreduce,W2,M,3,409.937,2.4979,13467.7,571.6,true,
+high_ram,spark,W2,M,1,91.668,11.1708,10585.6,543.2,true,
+high_ram,spark,W2,M,2,92.767,11.0384,10496.1,417.6,true,
+high_ram,spark,W2,M,3,92.990,11.0120,10525.0,560.8,true,
+high_ram,mapreduce,W2,L,1,2123.530,2.4111,17346.1,694.7,true,
+high_ram,mapreduce,W2,L,2,2147.549,2.3841,13089.8,605.9,true,
+high_ram,mapreduce,W2,L,3,2199.818,2.3275,15313.3,596.3,false,"exit=5|Streaming Command Failed! |stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,spark,W2,L,1,430.072,11.9050,8388.9,577.6,true,
+high_ram,spark,W2,L,2,446.571,11.4651,8703.6,631.3,true,
+high_ram,spark,W2,L,3,432.476,11.8388,8674.8,593.1,true,

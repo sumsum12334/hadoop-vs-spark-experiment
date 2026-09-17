@@ -1,13 +1,11 @@
-﻿$Root = "C:\dev\hadoop-vs-spark-experiment"
+﻿$Root = "C:\git\ust\hadoop-vs-spark-experiment"
 Set-Location $Root
 $ErrorActionPreference = "Continue"
 $log = Join-Path $Root "results\mvp_resume.out.log"
-$err = Join-Path $Root "results\mvp_resume.err.log"
 function W($m){ $line = "$(Get-Date -Format o) $m"; Add-Content -Path $log -Value $line -Encoding utf8; Write-Host $line }
 
-W ("=== resume from high_ram W1 L " + (Get-Date -Format o) + " ===")
+W ("=== QUP064 resume from high_ram W1 L " + (Get-Date -Format o) + " ===")
 
-# high_ram already up; W1/M done — only L for W1
 $cond = "high_ram"
 $wl = "W1"
 $out = Join-Path $Root ("results\results_" + $cond + "_" + $wl + ".csv")

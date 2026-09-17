@@ -1,4 +1,4 @@
-# Hadoop MapReduce vs Spark — single-node Docker Compose (design v4)
+# Hadoop MapReduce vs Spark - single-node Docker Compose (design v4)
 # ARM64 + AMD64: sbloodys/hadoop:3.3.6 (multi-arch) + bitnamilegacy/spark:3.5.5
 #
 #   docker compose --env-file .env.high_ram up -d
@@ -35,6 +35,8 @@ x-hadoop-env: &hadoop-env
   MAPRED-SITE.XML_mapreduce.framework.name: yarn
   MAPRED-SITE.XML_mapreduce.map.memory.mb: "512"
   MAPRED-SITE.XML_mapreduce.reduce.memory.mb: "512"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.resource.mb: "${YARN_AM_MEMORY_MB:-256}"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.command-opts: "-Xmx200m"
   MAPRED-SITE.XML_yarn.app.mapreduce.am.env: HADOOP_MAPRED_HOME=/opt/hadoop
   MAPRED-SITE.XML_mapreduce.map.env: HADOOP_MAPRED_HOME=/opt/hadoop
   MAPRED-SITE.XML_mapreduce.reduce.env: HADOOP_MAPRED_HOME=/opt/hadoop
@@ -88,13 +90,13 @@ services:
     <<: *limits
     container_name: hs-nodemanager
     hostname: nodemanager
-    entrypoint: ["/bin/bash", "/opt/hadoop-starter.sh"]
+    entrypoint: ["/bin/bash", "/opt/hs-entrypoint.sh"]
     command: ["yarn", "nodemanager"]
     depends_on: [namenode, datanode, resourcemanager]
     environment:
       <<: *hadoop-env
     volumes:
-      - ./docker/hadoop-starter.sh:/opt/hadoop-starter.sh:ro
+      - ./docker/hadoop-entrypoint.sh:/opt/hs-entrypoint.sh:ro
       - ./jobs:/jobs:ro
     networks: [hsnet]
 

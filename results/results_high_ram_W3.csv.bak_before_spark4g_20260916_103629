@@ -1,0 +1,19 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W3,S,1,216.354,0.2214,9139.3,380.0,true,
+high_ram,mapreduce,W3,S,2,221.585,0.2162,9201.2,386.1,true,
+high_ram,mapreduce,W3,S,3,217.168,0.2205,9242.6,432.6,true,
+high_ram,spark,W3,S,1,60.779,0.7880,9397.5,442.6,true,
+high_ram,spark,W3,S,2,62.173,0.7704,9436.2,410.1,true,
+high_ram,spark,W3,S,3,61.392,0.7802,9344.4,448.2,true,
+high_ram,mapreduce,W3,M,1,1187.238,0.4677,11781.4,574.6,true,
+high_ram,mapreduce,W3,M,2,1173.236,0.4733,12116.8,604.1,true,
+high_ram,mapreduce,W3,M,3,1143.454,0.4856,12189.7,567.4,true,
+high_ram,spark,W3,M,1,511.060,1.0865,13009.1,551.9,true,
+high_ram,spark,W3,M,2,511.646,1.0852,12751.4,568.7,true,
+high_ram,spark,W3,M,3,502.232,1.1056,12714.3,560.9,true,
+high_ram,mapreduce,W3,L,1,7190.709,0.4215,16104.2,602.2,true,
+high_ram,mapreduce,W3,L,2,7584.046,0.3996,13886.0,602.0,true,
+high_ram,mapreduce,W3,L,3,8321.705,0.3642,13905.1,793.6,true,"stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,spark,W3,L,1,1393.422,2.1749,13838.1,580.2,false,exit=52|OOM_or_killed|at org.apache.spark.rdd.RDD.iterator(RDD.scala:329) 	at org.apache.spark.api.python.PythonRDD.compute(PythonRDD.scala:67) 	at org.apache.spark.rdd.RDD.computeOrReadCheckpoint(RDD.scala:367) 	at org.apache.spark.rdd.RDD.iterator(RDD.scala:331)  Driver stacktrace:) 26/09/15 15:54:14 WARN BlockManager: Putting block rdd_6_16 failed due to exception org.apache.spark.TaskKilledException. 26/09/15 15:54:14 WARN BlockManager: Block rdd_6_16 could not be removed as it was not found on disk or in memory 
+high_ram,spark,W3,L,2,1414.758,2.1421,14088.6,595.9,false,exit=52|OOM_or_killed| found on disk or in memory 26/09/15 16:17:52 WARN BlockManager: Putting block rdd_6_16 failed due to exception org.apache.spark.TaskKilledException. 26/09/15 16:17:52 WARN BlockManager: Block rdd_6_16 could not be removed as it was not found on disk or in memory 26/09/15 16:17:52 WARN BlockManager: Putting block rdd_6_20 failed due to exception org.apache.spark.TaskKilledException. 26/09/15 16:17:52 WARN BlockManager: Block rdd_6_20 could not be removed as it was not found on disk or in memory 
+high_ram,spark,W3,L,3,1407.619,2.1530,14180.5,609.3,false,exit=52|OOM_or_killed|box.safelyCall(Inbox.scala:213) 	at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:100) 	at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:75) 	at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:41) 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) 	at java.base/java.lang.Thread.run(Unknown Source) 

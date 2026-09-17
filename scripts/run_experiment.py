@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment runner: env × workload × size × engine × trials -> results.csv
 
 Measures wall clock; best-effort peak mem/cpu via `docker stats` sampling.
@@ -384,10 +384,32 @@ def detect_oom(stderr: str, stdout: str) -> bool:
     return any(k.lower() in text.lower() for k in keys)
 
 
+def _parse_dotenv(path: Path) -> dict[str, str]:
+    out: dict[str, str] = {}
+    if not path.is_file():
+        return out
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        out[k.strip()] = v.strip().strip('"').strip("'")
+    return out
+
+
 def spark_mem_for_condition(condition: str) -> tuple[str, str]:
-    if condition == "low_ram":
-        return "512m", "1024m"
-    return "2g", "4g"
+    """Driver/executor heap from .env.{condition}."""
+    env = _parse_dotenv(ROOT / f".env.{condition}")
+    defaults = {
+        "high_ram": ("4g", "8g"),
+        "low_ram": ("512m", "1024m"),
+    }
+    d_def, e_def = defaults.get(condition, ("2g", "4g"))
+    import os
+    driver = env.get("SPARK_DRIVER_MEMORY") or os.environ.get("SPARK_DRIVER_MEMORY") or d_def
+    executor = env.get("SPARK_EXECUTOR_MEMORY") or os.environ.get("SPARK_EXECUTOR_MEMORY") or e_def
+    print(f"spark mem from .env.{condition}: driver={driver} executor={executor}")
+    return driver, executor
 
 
 def one_trial(condition: str, engine: str, workload: str, size: str, trial: int) -> dict:
