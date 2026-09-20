@@ -31,14 +31,14 @@ SIZE_BYTES = {
 # Graph edge counts chosen so edge-list text ≈ size target
 # ~24 bytes/edge average -> scale edges
 GRAPH_EDGES = {
-    "S": 4_000_000,    # ~100MB
-    "M": 40_000_000,   # ~1GB
-    "L": 200_000_000,  # ~5GB
+    "S": 4_000_000,    # ~44–50MB on disk
+    "M": 40_000_000,   # ~0.5GB on disk
+    "L": 360_000_000,  # target ~5GiB on disk (~14 B/edge observed)
 }
 GRAPH_NODES = {
     "S": 50_000,
     "M": 500_000,
-    "L": 2_000_000,
+    "L": 3_600_000,
 }
 
 VOCAB = [
