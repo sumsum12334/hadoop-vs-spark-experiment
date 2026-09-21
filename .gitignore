@@ -1,0 +1,33 @@
+# Large generated data
+data/**
+!data/.gitkeep
+
+# Results artifacts (keep CSV header / structure)
+results/*.png
+results/figures/**
+!results/figures/.gitkeep
+results/raw/**
+results/*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Docker / local env overrides
+.env
+.env.local
+*.log
+
+# Temp
+/tmp/
+*.tmp

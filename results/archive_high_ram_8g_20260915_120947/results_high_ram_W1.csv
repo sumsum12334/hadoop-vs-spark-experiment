@@ -1,0 +1,15 @@
+﻿condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W1,M,1,657.473,1.5575,5786.0,1208.7,true,
+high_ram,mapreduce,W1,M,2,664.294,1.5415,5635.7,1784.2,true,
+high_ram,mapreduce,W1,M,3,844.617,1.2124,5521.9,1378.4,true,"stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,spark,W1,M,1,75.344,13.5910,2486.0,507.8,true,
+high_ram,spark,W1,M,2,85.536,11.9715,3318.9,1524.6,true,
+high_ram,spark,W1,M,3,65.613,15.6066,3376.4,467.6,true,
+high_ram,mapreduce,W1,L,1,3550.691,1.4420,5990.2,1526.8,true,oom_warning_but_exit0
+high_ram,mapreduce,W1,L,1,2707.065,1.8913,6223.4,578.7,true,oom_warning_but_exit0
+high_ram,mapreduce,W1,L,1,2597.204,1.9714,7887.7,605.9,true,oom_warning_but_exit0
+high_ram,mapreduce,W1,L,2,2446.452,2.0928,8847.3,608.1,true,oom_warning_but_exit0
+high_ram,mapreduce,W1,L,3,2598.879,1.9701,9564.3,620.9,true,oom_warning_but_exit0
+high_ram,spark,W1,L,1,465.858,10.9905,6863.5,738.2,true,
+high_ram,spark,W1,L,2,462.037,11.0814,7194.2,610.0,true,
+high_ram,spark,W1,L,3,438.757,11.6693,7211.3,564.8,true,

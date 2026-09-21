@@ -1,0 +1,22 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+low_ram,mapreduce,W3,L,1,2.654,1928.8532,1589.6,150.3,false,exit=5|Streaming Command Failed! 
+low_ram,mapreduce,W3,L,2,2.700,1896.4185,1596.0,184.7,false,exit=5|Streaming Command Failed! 
+low_ram,mapreduce,W3,L,3,2.352,2176.4461,1608.7,205.3,false,exit=5|Streaming Command Failed! 
+low_ram,mapreduce,W3,L,1,3822.617,1.3394,3151.4,420.2,true,
+low_ram,mapreduce,W3,L,2,3625.212,1.4123,3469.0,475.6,true,
+low_ram,mapreduce,W3,L,3,3596.442,1.4236,3547.6,414.9,true,
+low_ram,spark,W3,L,1,406.772,12.5869,3423.5,410.4,false,exit=137|) / 84]  [Stage 7:============================================>            (65 + 4) / 84]  [Stage 7:==============================================>          (69 + 4) / 84]  [Stage 7:=================================================>       (73 + 4) / 84]  [Stage 7:====================================================>    (77 + 4) / 84]  [Stage 7:======================================================>  (80 + 4) / 84]  [Stage 8:>                                                        (0 + 4) / 126] 
+low_ram,spark,W3,L,2,482.556,10.6102,3426.6,560.9,false,exit=137|) / 84]  [Stage 8:>                                                        (0 + 4) / 126]  [Stage 8:>                                                        (0 + 4) / 126]  [Stage 8:>                                                        (1 + 4) / 126]  [Stage 8:>                                                        (2 + 4) / 126]  [Stage 8:=>                                                       (3 + 4) / 126]  [Stage 8:=>                                                       (4 + 4) / 126] 
+low_ram,spark,W3,L,3,439.425,11.6516,3430.8,418.0,false,exit=137|) / 84]  [Stage 7:==========================================>              (63 + 4) / 84]  [Stage 7:=============================================>           (67 + 4) / 84]  [Stage 7:================================================>        (71 + 4) / 84]  [Stage 7:==================================================>      (75 + 4) / 84]  [Stage 7:=====================================================>   (79 + 4) / 84]  [Stage 8:>                                                        (0 + 4) / 126] 
+low_ram,mapreduce,W3,S,1,140.995,0.7092,2468.0,352.3,true,
+low_ram,mapreduce,W3,S,2,141.993,0.7043,2611.1,540.3,true,
+low_ram,mapreduce,W3,S,3,146.518,0.6825,2495.9,365.4,true,
+low_ram,spark,W3,S,1,29.476,3.3925,3270.2,408.0,true,
+low_ram,spark,W3,S,2,29.415,3.3996,3274.7,410.8,true,
+low_ram,spark,W3,S,3,29.128,3.4332,3108.7,477.1,true,
+low_ram,mapreduce,W3,M,1,417.165,2.4547,3329.6,369.7,true,
+low_ram,mapreduce,W3,M,2,406.868,2.5168,3426.8,334.2,true,
+low_ram,mapreduce,W3,M,3,387.030,2.6458,3451.6,335.4,true,
+low_ram,spark,W3,M,1,53.011,19.3167,3527.3,481.7,false,exit=137|2) / 4]                                                                                    [Stage 3:>                                                          (0 + 4) / 4]  [Stage 3:==============>                                            (1 + 3) / 4]                                                                                    [Stage 7:=============================>                             (4 + 4) / 8]  [Stage 8:>                                                         (0 + 4) / 12] 
+low_ram,spark,W3,M,2,77.303,13.2466,3535.1,410.1,false,exit=1|OOM_or_killed|rkErrorUtils.tryWithSafeFinally(SparkErrorUtils.scala:64) 	at org.apache.spark.util.SparkErrorUtils.tryWithSafeFinally$(SparkErrorUtils.scala:61) 	at org.apache.spark.util.Utils$.tryWithSafeFinally(Utils.scala:94) 	at org.apache.spark.executor.Executor$TaskRunner.run(Executor.scala:623) 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source) 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source) 	at java.base/java.lang.Thread.run(Unknown Source) 
+low_ram,spark,W3,M,3,55.179,18.5577,3539.9,491.3,false,exit=137|4) / 4]                                                                                    [Stage 3:>                                                          (0 + 4) / 4]  [Stage 3:============================================>              (3 + 1) / 4]                                                                                    [Stage 7:===================================================>       (7 + 1) / 8]  [Stage 8:>                                                         (0 + 4) / 12] 

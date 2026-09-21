@@ -1,0 +1,19 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W3,S,1,123.159,0.8120,4785.8,321.4,true,
+high_ram,mapreduce,W3,S,2,131.027,0.7632,5533.2,356.4,true,
+high_ram,mapreduce,W3,S,3,129.756,0.7707,5538.4,346.2,true,
+high_ram,spark,W3,S,1,31.159,3.2093,6232.2,403.5,true,
+high_ram,spark,W3,S,2,31.318,3.1930,6048.5,399.1,true,
+high_ram,spark,W3,S,3,32.559,3.0714,6050.9,470.8,true,
+high_ram,mapreduce,W3,M,1,375.846,2.7245,6285.0,506.2,true,
+high_ram,mapreduce,W3,M,2,372.594,2.7483,6364.7,412.4,true,
+high_ram,mapreduce,W3,M,3,383.745,2.6684,6576.1,547.8,true,
+high_ram,spark,W3,M,1,270.326,3.7880,9604.4,410.1,true,
+high_ram,spark,W3,M,2,265.708,3.8539,9582.9,494.8,true,
+high_ram,spark,W3,M,3,284.587,3.5982,9713.4,682.8,true,"stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,mapreduce,W3,L,1,3086.552,1.6588,20582.5,1171.8,true,
+high_ram,mapreduce,W3,L,2,3252.838,1.5740,20468.9,725.2,true,
+high_ram,mapreduce,W3,L,3,3190.623,1.6047,20357.3,678.9,true,
+high_ram,spark,W3,L,1,4648.401,1.1015,16816.3,590.2,true,
+high_ram,spark,W3,L,2,4547.901,1.1258,16723.6,570.5,true,
+high_ram,spark,W3,L,3,4111.000,1.3582,10900.0,401.0,true,watch_unhung:HDFS_SUCCESS_12:24_HKT;docker_exec_hung;wall_from_11:16:19_to_SUCCESS;peaks_from_midrun_watch

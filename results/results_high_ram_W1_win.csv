@@ -1,0 +1,20 @@
+condition,engine,workload,size,trial,wall_sec,throughput_MBps,peak_mem_mb,peak_cpu_pct,ok,notes
+high_ram,mapreduce,W1,S,1,53.698,1.8623,3899.9,692.4,true,
+high_ram,mapreduce,W1,S,2,51.580,1.9387,3664.0,660.9,true,
+high_ram,mapreduce,W1,S,3,53.484,1.8697,3848.2,592.4,true,
+high_ram,spark,W1,S,1,25.836,3.8706,3216.4,546.2,true,
+high_ram,spark,W1,S,2,23.387,4.2759,2925.6,503.7,true,
+high_ram,spark,W1,S,3,23.622,4.2333,3007.8,476.0,true,
+high_ram,mapreduce,W1,M,1,341.591,2.9977,6972.3,737.8,true,
+high_ram,mapreduce,W1,M,2,359.576,2.8478,6989.5,765.3,true,
+high_ram,mapreduce,W1,M,3,339.811,3.0134,6848.5,687.4,true,
+high_ram,spark,W1,M,1,95.613,10.7099,4326.1,789.0,true,
+high_ram,spark,W1,M,2,97.546,10.4976,4281.3,765.7,true,
+high_ram,spark,W1,M,3,99.047,10.3385,4302.4,766.9,true,
+high_ram,mapreduce,W1,L,1,1974.313,2.5933,11991.0,763.7,true,oom_warning_but_exit0
+high_ram,mapreduce,W1,L,2,3795.318,1.3490,16585.5,614.0,false,"exit=5|roupInformation.doAs(UserGroupInformation.java:1899) 	at org.apache.hadoop.mapred.YarnChild.main(YarnChild.java:172) Caused by: java.net.UnknownHostException: namenode 	... 17 more  Task attempt attempt_1789446097441_0008_m_000021_0 is done from TaskUmbilicalProtocol's point of view. However, it stays in finishing state for too long AttemptID:attempt_1789446097441_0008_m_000011_0 task timeout set: 600s, taskTimedOut: true; task stuck timeout set: 600s, taskStuck: false Streaming Command Failed! |stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"
+high_ram,mapreduce,W1,L,3,2011.207,2.5457,15073.0,609.9,true,oom_warning_but_exit0
+high_ram,spark,W1,L,1,439.693,11.6445,8477.7,582.3,true,
+high_ram,spark,W1,L,2,435.807,11.7483,8454.9,556.2,true,
+high_ram,spark,W1,L,3,430.861,11.8832,8483.6,585.5,true,
+high_ram,mapreduce,W1,L,1,2088.054,2.4520,12254.5,594.7,true,"oom_warning_but_exit0|stats_err:Command '['docker', 'stats', '--no-stream', '--format', '{{.Name}},{{.CPUPerc}},{{.MemUsage}}', 'hs-namenode', 'hs-datanode', 'hs-resourcemanager', 'hs-nodemanager', 'hs-spark']' timed out after 15 seconds"

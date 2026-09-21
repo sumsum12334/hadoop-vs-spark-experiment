@@ -1,0 +1,147 @@
+# Hadoop MapReduce vs Spark - single-node Docker Compose (design v4)
+# ARM64 + AMD64: sbloodys/hadoop:3.3.6 (multi-arch) + bitnamilegacy/spark:3.5.5
+#
+#   docker compose --env-file .env.high_ram up -d
+#   scripts/compose_up.ps1 -Profile high_ram
+
+name: hscompare
+
+x-limits: &limits
+  mem_limit: ${MEM_LIMIT:-8g}
+  cpus: ${CPU_LIMIT:-4.0}
+
+x-hadoop-env: &hadoop-env
+  CORE-SITE.XML_fs.defaultFS: hdfs://namenode:9000
+  CORE-SITE.XML_hadoop.http.staticuser.user: root
+  HDFS-SITE.XML_dfs.replication: "1"
+  HDFS-SITE.XML_dfs.permissions.enabled: "false"
+  HDFS-SITE.XML_dfs.namenode.rpc-address: namenode:9000
+  HDFS-SITE.XML_dfs.namenode.http-address: 0.0.0.0:9870
+  HDFS-SITE.XML_dfs.namenode.name.dir: /tmp/hadoop-root/dfs/name
+  HDFS-SITE.XML_dfs.datanode.data.dir: /tmp/hadoop-root/dfs/data
+  YARN-SITE.XML_yarn.nodemanager.pmem-check-enabled: "false"
+  YARN-SITE.XML_yarn.nodemanager.vmem-check-enabled: "false"
+  YARN-SITE.XML_yarn.resourcemanager.hostname: resourcemanager
+  YARN-SITE.XML_yarn.resourcemanager.address: resourcemanager:8032
+  YARN-SITE.XML_yarn.resourcemanager.scheduler.address: resourcemanager:8030
+  YARN-SITE.XML_yarn.resourcemanager.resource-tracker.address: resourcemanager:8031
+  YARN-SITE.XML_yarn.resourcemanager.admin.address: resourcemanager:8033
+  YARN-SITE.XML_yarn.resourcemanager.webapp.address: 0.0.0.0:8088
+  YARN-SITE.XML_yarn.nodemanager.aux-services: mapreduce_shuffle
+  YARN-SITE.XML_yarn.nodemanager.resource.memory-mb: ${YARN_NODEMANAGER_MEMORY_MB:-6144}
+  YARN-SITE.XML_yarn.scheduler.maximum-allocation-mb: ${YARN_SCHEDULER_MAX_MB:-6144}
+  YARN-SITE.XML_yarn.scheduler.minimum-allocation-mb: "128"
+  YARN-SITE.XML_yarn.log-aggregation-enable: "true"
+  MAPRED-SITE.XML_mapreduce.framework.name: yarn
+  MAPRED-SITE.XML_mapreduce.map.memory.mb: "512"
+  MAPRED-SITE.XML_mapreduce.reduce.memory.mb: "512"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.resource.mb: "${YARN_AM_MEMORY_MB:-256}"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.command-opts: "-Xmx200m"
+  MAPRED-SITE.XML_yarn.app.mapreduce.am.env: HADOOP_MAPRED_HOME=/opt/hadoop
+  MAPRED-SITE.XML_mapreduce.map.env: HADOOP_MAPRED_HOME=/opt/hadoop
+  MAPRED-SITE.XML_mapreduce.reduce.env: HADOOP_MAPRED_HOME=/opt/hadoop
+
+services:
+  namenode:
+    image: sbloodys/hadoop:3.3.6
+    <<: *limits
+    container_name: hs-namenode
+    hostname: namenode
+    command: ["hdfs", "namenode"]
+    environment:
+      <<: *hadoop-env
+      ENSURE_NAMENODE_DIR: /tmp/hadoop-root/dfs/name
+    volumes:
+      - ./jobs:/jobs:ro
+      - ./data:/data
+      - ./scripts:/scripts:ro
+      - ./results:/results
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    networks: [hsnet]
+
+  datanode:
+    image: sbloodys/hadoop:3.3.6
+    <<: *limits
+    container_name: hs-datanode
+    hostname: datanode
+    command: ["hdfs", "datanode"]
+    depends_on: [namenode]
+    environment:
+      <<: *hadoop-env
+    networks: [hsnet]
+
+  resourcemanager:
+    image: sbloodys/hadoop:3.3.6
+    <<: *limits
+    container_name: hs-resourcemanager
+    hostname: resourcemanager
+    command: ["yarn", "resourcemanager"]
+    depends_on: [namenode, datanode]
+    environment:
+      <<: *hadoop-env
+    ports:
+      - "8088:8088"
+    networks: [hsnet]
+
+  nodemanager:
+    image: sbloodys/hadoop:3.3.6
+    <<: *limits
+    container_name: hs-nodemanager
+    hostname: nodemanager
+    entrypoint: ["/bin/bash", "/opt/hs-entrypoint.sh"]
+    command: ["yarn", "nodemanager"]
+    depends_on: [namenode, datanode, resourcemanager]
+    environment:
+      <<: *hadoop-env
+    volumes:
+      - ./docker/hadoop-entrypoint.sh:/opt/hs-entrypoint.sh:ro
+      - ./jobs:/jobs:ro
+    networks: [hsnet]
+
+  historyserver:
+    image: sbloodys/hadoop:3.3.6
+    <<: *limits
+    container_name: hs-historyserver
+    hostname: historyserver
+    command: ["mapred", "historyserver"]
+    depends_on: [namenode, datanode, resourcemanager]
+    environment:
+      <<: *hadoop-env
+    ports:
+      - "8188:8188"
+    networks: [hsnet]
+
+  spark:
+    image: bitnamilegacy/spark:3.5.5
+    <<: *limits
+    container_name: hs-spark
+    hostname: spark
+    user: root
+    depends_on: [namenode, datanode]
+    environment:
+      SPARK_MODE: master
+      SPARK_RPC_AUTHENTICATION_ENABLED: "no"
+      SPARK_RPC_ENCRYPTION_ENABLED: "no"
+      SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED: "no"
+      SPARK_SSL_ENABLED: "no"
+      SPARK_MASTER_HOST: spark
+      SPARK_WORKER_MEMORY: ${SPARK_WORKER_MEMORY:-6g}
+      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-2g}
+      SPARK_EXECUTOR_MEMORY: ${SPARK_EXECUTOR_MEMORY:-4g}
+    volumes:
+      - ./jobs:/jobs:ro
+      - ./data:/data
+      - ./scripts:/scripts:ro
+      - ./results:/results
+      - ./docker/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf:ro
+    ports:
+      - "8080:8080"
+      - "4040:4040"
+    networks: [hsnet]
+
+networks:
+  hsnet:
+    driver: bridge
+
